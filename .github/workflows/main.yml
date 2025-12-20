@@ -34,7 +34,7 @@ jobs:
       # （可选）步骤5：如果你有编译产物需要保留，可以上传到工作流页面
       - name: Upload APK artifact
         if: success()  # 仅在构建成功时上传
-        uses: actions/upload-artifact@v3
+        uses: actions/checkout@v5
         with:
           name: app-apk
           path: app/build/outputs/apk/**/*.apk  # APK 文件的常见路径，请根据你的项目结构调整
