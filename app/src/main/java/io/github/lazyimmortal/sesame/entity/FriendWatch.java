@@ -42,12 +42,39 @@ public class FriendWatch extends IdAndName {
         return super.compareTo(o);
     }
 
+    /**
+     * 获取用户显示名称（优先使用掩码名，其次尝试PK好友字段，最后使用ID）
+     */
+    private static String getDisplayName(String id) {
+        // 1. 首先尝试获取掩码名
+        String maskName = UserIdMap.getMaskName(id);
+        if (maskName != null && !maskName.trim().isEmpty()) {
+            return maskName;
+        }
+
+        // 2. 如果掩码名为空，尝试获取PK好友字段（这里假设有一个PK好友映射类）
+        // 注意：这里需要根据实际项目中的PK好友映射类来调用
+        try {
+            // 假设有一个PkFriendMap类，如果不存在需要创建或修改
+            // String pkFriendName = PkFriendMap.getPkFriendName(id);
+            // if (pkFriendName != null && !pkFriendName.trim().isEmpty()) {
+            //     return pkFriendName;
+            // }
+        } catch (Exception e) {
+            Log.i(TAG, "获取PK好友字段失败: " + id);
+        }
+
+        // 3. 如果以上都失败，使用ID作为显示名
+        return id;
+    }
+
     public static void friendWatch(String id, int collectedEnergy) {
         try {
             JSONObject joSingle = joFriendWatch.optJSONObject(id);
             if (joSingle == null) {
                 joSingle = new JSONObject();
-                joSingle.put("name", UserIdMap.getMaskName(id));
+                // 使用getDisplayName方法获取显示名称
+                joSingle.put("name", getDisplayName(id));
                 joSingle.put("allGet", 0);
                 joSingle.put("startTime", TimeUtil.getDateStr());
                 joFriendWatch.put(id, joSingle);
@@ -79,7 +106,13 @@ public class FriendWatch extends IdAndName {
             while (ids.hasNext()) {
                 String id = ids.next();
                 joSingle = joFriendWatch.getJSONObject(id);
-                joSingle.put("name", joSingle.optString("name"));
+
+                // 更新名称，确保名称不为空
+                String currentName = joSingle.optString("name", "");
+                if (currentName == null || currentName.trim().isEmpty()) {
+                    joSingle.put("name", getDisplayName(id));
+                }
+
                 joSingle.put("allGet", joSingle.optInt("allGet", 0) + joSingle.optInt("weekGet", 0));
                 joSingle.put("weekGet", 0);
                 if (!joSingle.has("startTime")) {
@@ -144,13 +177,19 @@ public class FriendWatch extends IdAndName {
                 if (friend == null) {
                     friend = new JSONObject();
                 }
+
+                // 获取显示名称，如果为空则使用备用方案
                 String name = friend.optString("name");
+                if (name == null || name.trim().isEmpty()) {
+                    name = getDisplayName(id);
+                }
+
                 FriendWatch friendWatch = new FriendWatch(id, name);
                 friendWatch.startTime = friend.optString("startTime", "无");
                 friendWatch.weekGet = friend.optInt("weekGet", 0);
                 friendWatch.allGet = friend.optInt("allGet", 0) + friendWatch.weekGet;
-                String showText = name + "(开始统计时间:" + friendWatch.startTime + ")\n\n";
-                showText = showText + "周收:" + friendWatch.weekGet + " 总收:" + friendWatch.allGet;
+                String showText = name + "\n\n\uD83E\uDD21时间:" + friendWatch.startTime + "\n";
+                showText = showText + "\n\uD83E\uDD21周收:" + friendWatch.weekGet + "\n\n\uD83E\uDD21总收:" + friendWatch.allGet;
                 friendWatch.name = showText;
                 list.add(friendWatch);
             }

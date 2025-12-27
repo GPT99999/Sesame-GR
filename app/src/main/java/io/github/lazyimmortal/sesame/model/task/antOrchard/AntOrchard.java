@@ -91,7 +91,7 @@ public class AntOrchard extends ModelTask {
         modelFields.addField(executeInterval = new IntegerModelField("executeInterval", "执行间隔(毫秒)", 500, 500, null));
         modelFields.addField(orchardListTask = new BooleanModelField("orchardListTask", "农场任务", false));
         modelFields.addField(orchardSpreadManure = new BooleanModelField("orchardSpreadManure", "农场施肥 | 开启", false));
-        modelFields.addField(useBatchSpread = new BooleanModelField("useBatchSpread", "一键施肥5次", false));
+        modelFields.addField(useBatchSpread = new BooleanModelField("useBatchSpread", "一键施肥 | 5次", false));
         modelFields.addField(orchardSpreadManureSceneList = new SelectAndCountModelField("orchardSpreadManureSceneList", "农场施肥 | 场景列表", new LinkedHashMap<>(), AlipayPlantScene::getList, "请填写每日施肥次数"));
         //modelFields.addField(driveAnimalType = new ChoiceModelField("driveAnimalType", "驱赶小鸡 | 动作", DriveAnimalType.NONE, DriveAnimalType.nickNames));
         //modelFields.addField(driveAnimalList = new SelectModelField("driveAnimalList", "驱赶小鸡 | 好友列表", new LinkedHashSet<>(), AlipayUser::getList));
@@ -188,9 +188,9 @@ public class AntOrchard extends ModelTask {
             }
             
             // 处理返访奖励
-            //if (!Status.hasFlagToday("orchardWidgetDailyAward")) {
-            //    receiveOrchardVisitAward();
-            //}
+            if (!Status.hasFlagToday("orchardWidgetDailyAward")) {
+                receiveOrchardVisitAward();
+            }
             
             return true;
         }
@@ -524,7 +524,7 @@ public class AntOrchard extends ModelTask {
         try {
             JSONObject currentSign = signInfo.getJSONObject("currentSignItem");
             if (currentSign.getBoolean("signed")) {
-                Log.record("农场今日已签到");
+                Log.record("芭芭农场：农场今日已签到");
                 Status.flagToday("orchardSign", userId);
                 return;
             }
@@ -624,9 +624,9 @@ public class AntOrchard extends ModelTask {
                     String result = AntOrchardRpcCall.finishTask(sceneCode, taskId);
                     JSONObject finishResponse = new JSONObject(result);
                     if (MessageUtil.checkResultCode(TAG, finishResponse)) {
-                        Log.farm("农场任务🧾完成任务[" + title + "]第" + (rightsTimes + cnt + 1) + "次");
+                        Log.farm("芭芭农场📺[" + title + "] 第" + (rightsTimes + cnt + 1) + "次");
                     } else {
-                        Log.record("失败：芭芭农场广告任务📺[" + title + "] " + finishResponse.optString("desc"));
+                        Log.record("芭芭农场📺[" + title + "] " + finishResponse.optString("desc"));
                         break;
                     }
                     TimeUtil.sleep(500);
@@ -719,7 +719,7 @@ public class AntOrchard extends ModelTask {
             for (int i = 0; i < dailyGifts.length(); i++) {
                 JSONObject daily = dailyGifts.getJSONObject(i);
                 if (daily.getString("itemId").equals(itemId) && daily.getBoolean("received")) {
-                    Log.record("芭芭农场七日礼包当日奖励已领取");
+                    Log.record("芭芭农场：七日礼包当日奖励已领取");
                     Status.flagToday("orchardLotteryPlus", userId);
                     return;
                 }

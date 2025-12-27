@@ -488,9 +488,10 @@ public class NewSettingsActivity extends BaseActivity {
             }
         }
     }
-    
+
     private void save() {
-        if (ConfigV2.isModify(userId) && ConfigV2.save(userId, false)) {
+        // 直接保存，不检查是否修改
+        if (ConfigV2.save(userId, true)) {  // 使用 force = true
             ToastUtil.show(this, "保存成功！");
             if (!StringUtil.isEmpty(userId)) {
                 try {
@@ -501,7 +502,10 @@ public class NewSettingsActivity extends BaseActivity {
                     Log.printStackTrace(th);
                 }
             }
+        } else {
+            ToastUtil.show(this, "保存失败！");
         }
+
         if (!StringUtil.isEmpty(userId)) {
             UserIdMap.save(userId);
         }

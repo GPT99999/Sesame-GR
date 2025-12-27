@@ -143,11 +143,24 @@ public class AntOrchardRpcCall {
     /**
      * 领取回访奖励
      */
-    public static String receiveOrchardVisitAward() {
+   /* public static String receiveOrchardVisitAward() {
         return ApplicationHook.requestString("com.alipay.antorchard.receiveOrchardVisitAward",
                 "[{\"requestType\":\"NORMAL\",\"sceneCode\":\"ORCHARD\",\"source\":\"ch_appcenter__chsub_9patch\",\"version\":\"" + VERSION + "\"}]");
+    }  */
+
+    /**
+     * 领取回访奖励
+     */
+    public static String receiveOrchardVisitAward() {
+        // [FIXED] 使用字符串拼接，避免 String.format 因区域设置问题导致 JSON 格式错误
+        String args = "[{\"diversionSource\":\"widget\",\"requestType\":\"NORMAL\",\"sceneCode\":\"ORCHARD\",\"source\":\"widget_shoufei\",\"version\":\""
+                + VERSION + "\"}]";
+        return ApplicationHook.requestString("com.alipay.antorchard.receiveOrchardVisitAward", args);
     }
-    
+
+
+
+
     /**
      * 带参数的 orchardSyncIndex（适配第二个文件中的调用）
      * 注意：这里参数被忽略，调用无参版本

@@ -109,9 +109,9 @@ public class AntFarm extends ModelTask {
         modelFields.addField(useBigEaterTool = new BooleanModelField("useBigEaterTool", "加饭卡 | 使用", false));
         modelFields.addField(useSpecialFood = new BooleanModelField("useSpecialFood", "特殊食品 | 使用", false));
         modelFields.addField(useSpecialFoodCountLimit = new IntegerModelField("useSpecialFoodCountLimit", "特殊食品 | " + "使用上限(无限:0)", 0));
-        modelFields.addField(rewardFriend = new BooleanModelField("rewardFriend", "打赏好友", false));
-        modelFields.addField(recallAnimalType = new ChoiceModelField("recallAnimalType", "召回小鸡", RecallAnimalType.ALWAYS, RecallAnimalType.nickNames));
-        modelFields.addField(feedAnimal = new BooleanModelField("feedAnimal", "投喂小鸡", false));
+        modelFields.addField(rewardFriend = new BooleanModelField("rewardFriend", "打赏好友 | 开启", false));
+        modelFields.addField(recallAnimalType = new ChoiceModelField("recallAnimalType", "召回小鸡 | 开启", RecallAnimalType.ALWAYS, RecallAnimalType.nickNames));
+        modelFields.addField(feedAnimal = new BooleanModelField("feedAnimal", "投喂小鸡 | 开启", false));
         modelFields.addField(feedFriendAnimal = new BooleanModelField("feedFriendAnimal", "帮喂小鸡 | 开启", true));
         modelFields.addField(feedFriendAnimalList = new SelectAndCountModelField("feedFriendAnimalList", "帮喂小鸡 | " + "好友列表", new LinkedHashMap<>(), AlipayUser::getList, "请填写帮喂次数(每日)"));
         modelFields.addField(hireAnimalType = new ChoiceModelField("hireAnimalType", "雇佣小鸡 | 动作", HireAnimalType.NONE, HireAnimalType.nickNames));
@@ -124,7 +124,7 @@ public class AntFarm extends ModelTask {
         modelFields.addField(ornamentsDressUp = new BooleanModelField("ornamentsDressUp", "装扮焕新 | 开启", false));
         modelFields.addField(ornamentsDressUpList = new SelectModelField("ornamentsDressUpList", "装扮焕新 | 套装列表", new LinkedHashSet<>(), FarmOrnaments::getList));
         modelFields.addField(ornamentsDressUpDays = new IntegerModelField("ornamentsDressUpDays", "装扮焕新 | 焕新频率(天)", 7));
-        modelFields.addField(drawMachine = new BooleanModelField("drawMachine", "装扮抽抽乐", false));
+        modelFields.addField(drawMachine = new BooleanModelField("drawMachine", "装扮抽抽乐 | 开启", false));
         modelFields.addField(donationType = new ChoiceModelField("donationType", "每日捐蛋 | 方式", DonationType.ZERO, DonationType.nickNames));
         modelFields.addField(donationAmount = new IntegerModelField("donationAmount", "每日捐蛋 | 倍数(每项)", 1));
         modelFields.addField(family = new BooleanModelField("family", "亲密家庭 | 开启", false));
@@ -132,16 +132,16 @@ public class AntFarm extends ModelTask {
         modelFields.addField(notInviteList = new SelectModelField("notInviteList", "亲密家庭 | 不邀请列表", new LinkedHashSet<>(), AlipayUser::getList));
         modelFields.addField(sleepTime = new StringModelField("sleepTime", "小鸡睡觉 | 时间(关闭:-1)", "2001"));
         modelFields.addField(sleepMinutes = new IntegerModelField("sleepMinutes", "小鸡睡觉 | 时长(分钟)", 10 * 59, 1, 10 * 60));
-        modelFields.addField(recordFarmGame = new BooleanModelField("recordFarmGame", "小鸡乐园 | 游戏改分(星星球、登山赛、飞行赛、揍小鸡)", false));
+        modelFields.addField(recordFarmGame = new BooleanModelField("recordFarmGame", "小鸡乐园 | 游戏改分\n星星球、登山赛、飞行赛...", false));
         List<String> farmGameTimeList = new ArrayList<>();
         farmGameTimeList.add("2200-2400");
-        modelFields.addField(farmGameTime = new ListModelField.ListJoinCommaToStringModelField("farmGameTime", "小鸡乐园 " + "| 游戏时间(范围)", farmGameTimeList));
+        modelFields.addField(farmGameTime = new ListModelField.ListJoinCommaToStringModelField("farmGameTime", "小鸡乐园 " + "| 游戏时间", farmGameTimeList));
         modelFields.addField(drawGameCenterAward = new BooleanModelField("drawGameCenterAward", "小鸡乐园 | 开宝箱", false));
-        modelFields.addField(kitchen = new BooleanModelField("kitchen", "小鸡厨房", false));
-        modelFields.addField(chickenDiary = new BooleanModelField("chickenDiary", "小鸡日记", false));
-        modelFields.addField(harvestProduce = new BooleanModelField("harvestProduce", "收取爱心鸡蛋", false));
-        modelFields.addField(receiveFarmToolReward = new BooleanModelField("receiveFarmToolReward", "收取道具奖励", false));
-        modelFields.addField(receiveFarmTaskAward = new BooleanModelField("receiveFarmTaskAward", "收取饲料奖励", false));
+        modelFields.addField(kitchen = new BooleanModelField("kitchen", "小鸡厨房 | 开启", false));
+        modelFields.addField(chickenDiary = new BooleanModelField("chickenDiary", "小鸡日记 | 开启", false));
+        modelFields.addField(harvestProduce = new BooleanModelField("harvestProduce", "爱心鸡蛋 | 收取", false));
+        modelFields.addField(receiveFarmToolReward = new BooleanModelField("receiveFarmToolReward", "道具奖励 | 收取", false));
+        modelFields.addField(receiveFarmTaskAward = new BooleanModelField("receiveFarmTaskAward", "饲料奖励 | 收取", false));
         //modelFields.addField(getFeedType = new ChoiceModelField("getFeedType", "一起拿饲料 | 动作", GetFeedType.NONE, GetFeedType.nickNames));
         //modelFields.addField(getFeedList = new SelectModelField("getFeedList", "一起拿饲料 | 好友列表", new LinkedHashSet<>(), AlipayUser::getList));
         modelFields.addField(acceptGift = new BooleanModelField("acceptGift", "收麦子", false));
@@ -192,19 +192,19 @@ public class AntFarm extends ModelTask {
                     switch (SubAnimalType.valueOf(ownerAnimal.subAnimalType)) {
                         case GUEST:
                             guest = true;
-                            Log.record("小鸡到好友家去做客了");
+                            Log.record("庄园提示📣小鸡到好友家去做客了");
                             break;
                         case NORMAL:
-                            Log.record("小鸡太饿，离家出走了");
+                            Log.record("庄园提示📣小小鸡太饿，离家出走了");
                             break;
                         case PIRATE:
-                            Log.record("小鸡外出探险了");
+                            Log.record("庄园提示📣小小鸡外出探险了");
                             break;
                         case WORK:
-                            Log.record("小鸡出去工作啦");
+                            Log.record("庄园提示📣小小鸡出去工作啦");
                             break;
                         default:
-                            Log.record("小鸡不在庄园" + " " + ownerAnimal.subAnimalType);
+                            Log.record("庄园提示📣小小鸡不在庄园" + " " + ownerAnimal.subAnimalType);
                     }
                     
                     boolean hungry = false;
@@ -274,7 +274,7 @@ public class AntFarm extends ModelTask {
             }
             
             if (harvestProduce.getValue() && benevolenceScore >= 1) {
-                Log.record("有可收取的爱心鸡蛋");
+                Log.record("庄园提示📣小有可收取的爱心鸡蛋");
                 harvestProduce(ownerFarmId);
             }
             
@@ -289,7 +289,7 @@ public class AntFarm extends ModelTask {
             
             if (AnimalInteractStatus.HOME.name().equals(ownerAnimal.animalInteractStatus)) {
                 if (AnimalFeedStatus.HUNGRY.name().equals(ownerAnimal.animalFeedStatus)) {
-                    Log.record("小鸡在挨饿");
+                    Log.record("庄园提示📣小小鸡在挨饿");
                     if (feedAnimal.getValue()) {
                         feedAnimal(ownerFarmId);
                     }
@@ -349,9 +349,7 @@ public class AntFarm extends ModelTask {
                 letsGetChickenFeedTogether();
             }*/
             
-            if (family.getValue()) {
-                family();
-            }
+            if (family.getValue()) family();
             
             // 开宝箱
             if (drawGameCenterAward.getValue()) {
@@ -384,7 +382,7 @@ public class AntFarm extends ModelTask {
         long animalSleepTime = animalSleepTimeCalendar.getTimeInMillis();
         long animalWakeUpTime = animalWakeUpTimeCalendar.getTimeInMillis();
         if (animalSleepTime > animalWakeUpTime) {
-            Log.record("小鸡睡觉设置有误，请重新设置");
+            Log.record("庄园提示📣小小鸡睡觉设置有误，请重新设置");
             return;
         }
         Calendar now = TimeUtil.getNow();
@@ -395,7 +393,7 @@ public class AntFarm extends ModelTask {
             if (hasSleepToday()) {
                 return;
             }
-            Log.record("已错过小鸡今日睡觉时间");
+            Log.record("庄园提示📣小已错过小鸡今日睡觉时间");
             return;
         }
         if (afterSleepTime) {
@@ -497,14 +495,14 @@ public class AntFarm extends ModelTask {
             removeChildTask(taskId);
         }
         addChildTask(new ChildModelTask(taskId, "FA", () -> feedAnimal(ownerFarmId), nextFeedTime));
-        Log.record("添加蹲点投喂🥣[" + UserIdMap.getCurrentMaskName() + "]在[" + TimeUtil.getCommonDate(nextFeedTime) + "]执行");
+        Log.record("添加投喂🥣[" + UserIdMap.getCurrentMaskName() + "]在[" + TimeUtil.getCommonDate(nextFeedTime) + "]执行");
     }
     
     private void animalSleepTime(long animalSleepTime) {
         String sleepTaskId = "AS|" + animalSleepTime;
         if (!hasChildTask(sleepTaskId)) {
             addChildTask(new ChildModelTask(sleepTaskId, "AS", this::animalSleepNow, animalSleepTime));
-            Log.record("添加定时睡觉🛌[" + UserIdMap.getCurrentMaskName() + "]在[" + TimeUtil.getCommonDate(animalSleepTime) + "]执行");
+            Log.record("添加睡觉🛌[" + UserIdMap.getCurrentMaskName() + "]在[" + TimeUtil.getCommonDate(animalSleepTime) + "]执行");
         }
     }
     
@@ -512,7 +510,7 @@ public class AntFarm extends ModelTask {
         String wakeUpTaskId = "AW|" + animalWakeUpTime;
         if (!hasChildTask(wakeUpTaskId)) {
             addChildTask(new ChildModelTask(wakeUpTaskId, "AW", this::animalWakeUpNow, animalWakeUpTime));
-            Log.record("添加定时起床🔆[" + UserIdMap.getCurrentMaskName() + "]在[" + TimeUtil.getCommonDate(animalWakeUpTime) + "]执行");
+            Log.record("添加起床🔆[" + UserIdMap.getCurrentMaskName() + "]在[" + TimeUtil.getCommonDate(animalWakeUpTime) + "]执行");
         }
     }
     
@@ -540,7 +538,7 @@ public class AntFarm extends ModelTask {
             }
             JSONObject sleepNotifyInfo = jo.getJSONObject("sleepNotifyInfo");
             if (!sleepNotifyInfo.optBoolean("canSleep", false)) {
-                Log.record("小鸡无需睡觉🛌");
+                Log.record("庄园提示📣小鸡无需睡觉");
                 return false;
             }
             if (family.getValue() && !StringUtil.isEmpty(ownerGroupId)) {
@@ -573,7 +571,7 @@ public class AntFarm extends ModelTask {
                 return animalWakeUp();
             }
             else {
-                Log.record("小鸡无需起床🔆");
+                Log.record("庄园提示📣小鸡无需起床");
             }
         }
         catch (Throwable t) {
@@ -587,7 +585,7 @@ public class AntFarm extends ModelTask {
         try {
             JSONObject jo = new JSONObject(AntFarmRpcCall.sleep());
             if (MessageUtil.checkMemo(TAG, jo)) {
-                Log.farm("小鸡睡觉🛌");
+                Log.farm("庄园提示📣小鸡睡觉");
                 return true;
             }
         }
@@ -602,7 +600,7 @@ public class AntFarm extends ModelTask {
         try {
             JSONObject jo = new JSONObject(AntFarmRpcCall.wakeUp());
             if (MessageUtil.checkMemo(TAG, jo)) {
-                Log.farm("小鸡起床🔆");
+                Log.farm("庄园提示📣小鸡起床");
                 return true;
             }
         }
@@ -1173,7 +1171,7 @@ public class AntFarm extends ModelTask {
                 Log.farm("饲料任务🧾完成[" + title + "]");
             }
             else {
-                Log.record("任务执行失败或跳过: " + title);
+                Log.record("任务跳过: " + title);
             }
         }
         catch (Throwable t) {
@@ -1215,7 +1213,7 @@ public class AntFarm extends ModelTask {
     
     private void checkUnReceiveTaskAward() {
         if (unReceiveTaskAward > 0) {
-            Log.record("还有待领取的饲料");
+            Log.record("庄园提示🥣还有待领取的饲料");
             unReceiveTaskAward = 0;
             listFarmTask(TaskStatus.FINISHED);
         }
@@ -1225,7 +1223,7 @@ public class AntFarm extends ModelTask {
         try {
             syncAnimalStatus(ownerFarmId);
             if (foodStock < 180) {
-                Log.record("剩余饲料不足以投喂小鸡");
+                Log.record("庄园提示🥣剩余饲料不足以投喂小鸡");
                 return;
             }
             JSONObject jo = new JSONObject(AntFarmRpcCall.feedAnimal(farmId));
@@ -1383,7 +1381,7 @@ public class AntFarm extends ModelTask {
             String maskName = UserIdMap.getMaskName(userId);
             Log.record("[" + maskName + "]的小鸡在挨饿");
             if (foodStock < 180) {
-                Log.record("喂鸡饲料不足");
+                Log.record("庄园提示🥣喂鸡饲料不足");
                 checkUnReceiveTaskAward();
                 if (foodStock < 180) {
                     return;
@@ -2020,7 +2018,7 @@ public class AntFarm extends ModelTask {
                 //屏蔽玩游戏和捐赠任务
                 //if(title.contains("玩游戏得新机会")||desc.contains("单笔捐赠")||desc.contains("玩30秒")){
                 if (title.contains("玩游戏得新机会") || desc.contains("单笔捐赠")) {
-                    Log.record("装扮抽抽乐跳过屏蔽任务：" + title);
+                    Log.record("屏蔽任务：" + title);
                     continue;
                 }
                 
@@ -2103,7 +2101,7 @@ public class AntFarm extends ModelTask {
             }
             Log.farm("雇佣小鸡👷[当前可雇佣小鸡数量:" + count + "只]");
             if (foodStock < 50) {
-                Log.record("饲料不足，暂不雇佣");
+                Log.record("庄园提示📣饲料不足，暂不雇佣");
                 return;
             }
             
@@ -2140,7 +2138,7 @@ public class AntFarm extends ModelTask {
             while (hasNext && count > 0);
             
             if (count > 0) {
-                Log.farm("没有足够的小鸡可以雇佣");
+                Log.farm("庄园提示📣没有足够的小鸡可以雇佣");
             }
         }
         catch (Throwable t) {
@@ -2165,7 +2163,7 @@ public class AntFarm extends ModelTask {
                 if (!hasChildTask(taskId)) {
                     long beHiredEndTime = animal.beHiredEndTime;
                     addChildTask(new ChildModelTask(taskId, "HIRE", this::hireAnimal, beHiredEndTime));
-                    Log.record("添加蹲点雇佣👷在[" + TimeUtil.getCommonDate(beHiredEndTime) + "]执行");
+                    Log.record("添加雇佣👷在[" + TimeUtil.getCommonDate(beHiredEndTime) + "]执行");
                 }
             }
         }
